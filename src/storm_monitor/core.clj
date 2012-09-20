@@ -13,9 +13,9 @@
   (:require tron)
   (:use [clojure.contrib.string :only [join substring?]]))
 
-(def INTERVAL "interval")
+
 (def SUPS "supervisors")
-(def TOPS "storms")
+(def TOPS "topologies")
 (def CHECK-NIMBUS "nimbus.check")
 
 ;;Check if supervisors are all alive
@@ -116,7 +116,8 @@
               sconf
               (sconf STORM-ZOOKEEPER-SERVERS)
               (sconf STORM-ZOOKEEPER-PORT)
-              :auth-conf sconf)
+              :auth-conf sconf
+              :root (sconf STORM-ZOOKEEPER-ROOT))
        msgs  (filter #(not (nil? %))
                     [(check-supervisors sconf mconf zkc)
                      (check-tops sconf mconf zkc)
